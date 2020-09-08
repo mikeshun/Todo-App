@@ -1,0 +1,84 @@
+<div class="wrapper">
+  <div class="inner my-auto">
+    <div class="card shadow">
+      <div class="card-body">
+        <h6 class="font-weight-bold">Scoobydo.</h6>
+        <h3 class="mt-3">Create account</h3>
+        <p class="text-muted">
+          Join with your credentials to experience <b>Scoobydo.</b>
+        </p>
+        <form
+          [formGroup]="registerForm"
+          (ngSubmit)="emailSignUp(registerForm.value)"
+        >
+          <div class="mt-3 mb-3">
+            <div class="form-label-group">
+              <input
+                type="email"
+                id="username"
+                class="form-control"
+                placeholder="Username"
+                formControlName="email"
+              />
+              <label for="username">Email</label>
+            </div>
+            <div class="form-label-group">
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                placeholder="Password"
+                autocomplete="username"
+                formControlName="password"
+              />
+              <label for="password">Password</label>
+            </div>
+            <button
+              [disabled]="registerForm.invalid"
+              *ngIf="!isLoading"
+              type="submit"
+              class="btn btn-block btn-primary btn-lg"
+            >
+              Create account
+            </button>
+            <button
+              *ngIf="isLoading"
+              class="btn btn-block btn-primary btn-lg"
+              type="button"
+              disabled
+            >
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              <span class="sr-only">Loading...</span>
+            </button>
+          </div>
+        </form>
+        <p class="text-center text-muted">OR</p>
+        <div class="mt-3">
+          <button
+            type="button"
+            class="btn btn-block btn-google btn-lg"
+            (click)="socialSignUp(1)"
+          >
+            <i class="fab fa-google mr-2"></i>Sign up with Google
+          </button>
+          <button
+          disabled
+            type="button"
+            class="btn btn-block btn-facebook btn-lg"
+            (click)="socialSignUp(2)"
+          >
+            <i class="fab fa-facebook-f mr-2"></i>Sign up with Facebook
+          </button>
+        </div>
+
+        <p class="mt-4 text-muted text-center">
+          Have an account? <a routerLink="/auth/login">Sign in</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

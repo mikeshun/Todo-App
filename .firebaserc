@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "taskr-18111": {
+      "hosting": {
+        "taskr": [
+          "taskr-18111"
+        ]
+      }
+    }
+  }
+}

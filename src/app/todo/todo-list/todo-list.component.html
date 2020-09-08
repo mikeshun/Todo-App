@@ -1,0 +1,72 @@
+<div class="mt-5">
+  <h5 class="font-weight-bold">Good {{ greeting }},</h5>
+  <h2 class="font-weight-bold mb-0 pb-0">
+    {{ user?.displayName || user?.email }}
+  </h2>
+  <p class="text-muted mt-0 pt-0">Here is a list of all your tasks.</p>
+</div>
+<div class="mt-4">
+  <div class="form-group has-search res-search mb-4">
+    <span class="fas fa-search form-control-feedback"></span>
+    <input
+      type="text"
+      class="form-control search shadow"
+      placeholder="Search todo"
+      [(ngModel)]="term"
+    />
+  </div>
+  <div *ngIf="!isLoading">
+    <div class="row no-gutter todo-item my-3" *ngFor="let todo of todos | customSearch: { title: term, description: term }">
+      <div class="col-1 text-center">
+        <label class="container-check">
+          <input type="checkbox" [checked]="todo.isCompleted" />
+          <span class="checkmark" (click)="completeTodo(todo)"></span>
+        </label>
+      </div>
+      <div class="col-11" (click)="openTodoForm(todo)">
+        <h5
+          class="font-weight-bold"
+          [ngClass]="todo.isCompleted ? 'completed' : 'not-completed'"
+        >
+          {{ todo?.title }}
+        </h5>
+        <p
+          class="mb-0 pb-0"
+          [ngClass]="todo.isCompleted ? 'completed' : 'not-completed'"
+        >
+          {{ todo?.description }}
+        </p>
+        <small *ngIf="todo.dueAt"
+          class="text-muted"
+          [ngClass]="todo.isCompleted ? 'completed' : 'not-completed'"
+          >Due {{ todo?.dueAt | date: "EEEE, MMMM d, y | h:mm a" }}</small
+        >
+        <small *ngIf="!todo.dueAt"
+          class="text-muted"
+          [ngClass]="todo.isCompleted ? 'completed' : 'not-completed'"
+          >No Due Date specified</small
+        >
+      </div>
+    </div>
+    <div class="my-3" *ngIf="todos.length === 0">
+      <div class="text-center">
+        <img src="assets/images/no-tasks.svg" alt="" height="300" />
+        <p class="mt-4">
+          This place is very quiet 👀 <br />Add a task and make it fun😍
+        </p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isLoading">
+    <div class="row my-3">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<button (click)="openTodoForm()" class="kc_fab_main_btn">
+  <i class="fas fa-plus"></i>
+</button>

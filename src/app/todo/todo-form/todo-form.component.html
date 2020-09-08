@@ -1,0 +1,41 @@
+<form [formGroup]="todoForm" (ngSubmit)="handleTodoStorage(todoForm.value)">
+  <div class="modal-header">
+    <h4 class="modal-title">What's up for today? 🤠</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="activeModal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" ngbAutofocus>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" formControlName="title"/>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        name="description"
+        id="description"
+        rows="3"
+        class="form-control"
+        formControlName="description"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="completedAt">Due At</label>
+      <input type="datetime-local" class="form-control" formControlName="dueAt" />
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button (click)="deleteTodo(todo.id)" type="button" *ngIf="todo" class="btn btn-danger mr-auto">Delete</button>
+    <button *ngIf="!isLoading" [disabled]="todoForm.invalid" type="submit" class="btn btn-outline-primary">Save</button>
+    <button *ngIf="isLoading" class="btn btn-outline-primary" type="button" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      <span class="sr-only">Loading...</span>
+    </button>
+  </div>
+</form>
